@@ -5,16 +5,14 @@ using UnityEngine.AI;
 
 public class NavMeshMovement : MonoBehaviour
 {
-    private Ray lastRay;
     [SerializeField]private float speed;
-    private Transform destination;
     private NavMeshAgent navMeshAgent;
 
     // Start is called before the first frame update
     void Start()
     {
-        destination = GameObject.Find("Target").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        speed = 10;
     }
 
     // Update is called once per frame
@@ -29,6 +27,7 @@ public class NavMeshMovement : MonoBehaviour
 
     private void MoveToCursor()
     {
+        //Shoot a ray from the camera and move to the camera if a collision is detected
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(ray, out hit);
@@ -36,7 +35,7 @@ public class NavMeshMovement : MonoBehaviour
         if(hasHit)
         {
             navMeshAgent.SetDestination(hit.point);
-            navMeshAgent.speed = speed;
+           navMeshAgent.speed = speed;
         }
     }
 }
